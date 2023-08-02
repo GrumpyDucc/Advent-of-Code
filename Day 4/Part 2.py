@@ -1,4 +1,4 @@
-sectionAssignments = open("Day 4\data.txt","r").read().split("\n")
+sectionAssignments = open("Day 4\\data.txt","r").read().split("\n")
 
 containments = 0
 
