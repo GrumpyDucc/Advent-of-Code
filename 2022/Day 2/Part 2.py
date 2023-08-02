@@ -1,4 +1,4 @@
-turnList = open("Day 2\data.txt","r").read().split("\n")
+turnList = open("2022\\Day 2\\data.txt","r").read().split("\n")
 
 score = 0
 draw = 3

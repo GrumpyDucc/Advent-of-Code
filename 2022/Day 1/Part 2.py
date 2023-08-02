@@ -1,4 +1,4 @@
-fileList = open("Python\Advent of Code\Day 1\data.txt","r").read().split("\n\n")
+fileList = open("2022\\Day 1\\data.txt","r").read().split("\n\n")
 caloriesList = []
 
 for elves in fileList:

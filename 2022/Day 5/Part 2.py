@@ -1,4 +1,4 @@
-data = open("Day 5\\data.txt","r").read().split("\n\n")
+data = open("2022\\Day 5\\data.txt","r").read().split("\n\n")
 
 crateList = data[0].replace("\n", "  ").replace("[", "").replace("]", "").replace("    ", " ").split(" ")
 lastNum = int(crateList[-2])

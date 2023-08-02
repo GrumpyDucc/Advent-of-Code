@@ -1,4 +1,4 @@
-allItems = open("Day 3\data.txt","r").read().split("\n")
+allItems = open("2022\\Day 3\\data.txt","r").read().split("\n")
 
 priority = 0
 count = 0
