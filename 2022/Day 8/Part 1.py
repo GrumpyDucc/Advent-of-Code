@@ -1,10 +1,10 @@
-rows = open("2022\\Day 8\\testdata.txt", "r").read().split("\n")
+rows = open("2022\\Day 8\\data.txt", "r").read().split("\n")
 colums = [list(column) for column in zip(*rows)]
 
 def visibleLeft(currRow, height, currentTreePos):
     count = 0
     for letter in [*rows[currRow]][:currentTreePos]:
-        if int(letter) < height:
+        if int(letter) < int(height):
             count += 1
     if count == len([*rows[currRow]][:currentTreePos]):
         return True
@@ -14,26 +14,41 @@ def visibleLeft(currRow, height, currentTreePos):
 def visibleRight(currRow, height, currentTreePos):
     count = 0
     for letter in [*rows[currRow]][currentTreePos+1:]:
-        if int(letter) < height:
+        if int(letter) < int(height):
             count += 1
     if count == len([*rows[currRow]][currentTreePos+1:]):
         return True
     else:
         return False
 
-print(colums)
+def visibleUp(currRow, height, currentTreePos):
+    count = 0
+    treesToCheck = [*colums[currentTreePos]][:currRow]
+    for letter in treesToCheck:
+        if int(letter) < int(height):
+            count += 1
+    if count == len(treesToCheck):
+        return True
+    else:
+        return False
+
+def visibleDown(currRow, height, currentTreePos):
+    count = 0
+    for letter in [*colums[currentTreePos]][currRow+1:]:
+        if int(letter) < int(height):
+            count += 1
+    if count == len([*colums[currentTreePos]][currRow+1:]):
+        return True
+    else:
+        return False
 
 def checkTree(currentTreeRow, currentTree):
-    prevRowTrees = [*rows[currentTreeRow-1]]
     currRowTrees = [*rows[currentTreeRow]]
-    nextRowTrees = [*rows[currentTreeRow+1]]
     tree = currRowTrees[currentTree]
-    if prevRowTrees[currentTree] >= tree and currRowTrees[currentTree-1] >= tree and currRowTrees[currentTree+1] >= tree and nextRowTrees[currentTree] >= tree:
-        return 0    # Tree is not visible
-    else:
+    if visibleUp(currentTreeRow, tree, currentTree) or visibleDown(currentTreeRow, tree, currentTree) or visibleLeft(currentTreeRow, tree, currentTree) or visibleRight(currentTreeRow, tree, currentTree):
         return 1    # Tree is visible
-
-# !!! Die GANZE reihe testen nicht nur die angrenzenden !!!
+    else:
+        return 0    # Tree is not visible
 
 visibleTrees = 0
 
@@ -49,4 +64,4 @@ while currentRow < len(rows)-1:
     currentRow += 1
 
 outerRing = (len(rows)-2)*2+len(rows[0])*2
-print(visibleTrees, outerRing)
+print(visibleTrees + outerRing)

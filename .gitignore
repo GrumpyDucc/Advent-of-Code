@@ -12,5 +12,5 @@
 *.vsix
 
 # Task and Testdata Files
-task.txt
-testdata.txt
+task*
+test*
