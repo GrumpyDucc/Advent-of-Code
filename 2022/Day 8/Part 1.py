@@ -1,4 +1,27 @@
 rows = open("2022\\Day 8\\testdata.txt", "r").read().split("\n")
+colums = [list(column) for column in zip(*rows)]
+
+def visibleLeft(currRow, height, currentTreePos):
+    count = 0
+    for letter in [*rows[currRow]][:currentTreePos]:
+        if int(letter) < height:
+            count += 1
+    if count == len([*rows[currRow]][:currentTreePos]):
+        return True
+    else:
+        return False
+
+def visibleRight(currRow, height, currentTreePos):
+    count = 0
+    for letter in [*rows[currRow]][currentTreePos+1:]:
+        if int(letter) < height:
+            count += 1
+    if count == len([*rows[currRow]][currentTreePos+1:]):
+        return True
+    else:
+        return False
+
+print(colums)
 
 def checkTree(currentTreeRow, currentTree):
     prevRowTrees = [*rows[currentTreeRow-1]]
@@ -10,7 +33,7 @@ def checkTree(currentTreeRow, currentTree):
     else:
         return 1    # Tree is visible
 
-# Die GANZE reihe testen nicht nur die angrenzenden
+# !!! Die GANZE reihe testen nicht nur die angrenzenden !!!
 
 visibleTrees = 0
 
