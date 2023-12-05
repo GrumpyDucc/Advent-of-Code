@@ -1,0 +1,14 @@
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\bin\Debug\net7.0\Day 2.exe
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\bin\Debug\net7.0\Day 2.deps.json
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\bin\Debug\net7.0\Day 2.runtimeconfig.json
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\bin\Debug\net7.0\Day 2.dll
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\bin\Debug\net7.0\Day 2.pdb
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\obj\Debug\net7.0\Day 2.GeneratedMSBuildEditorConfig.editorconfig
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\obj\Debug\net7.0\Day 2.AssemblyInfoInputs.cache
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\obj\Debug\net7.0\Day 2.AssemblyInfo.cs
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\obj\Debug\net7.0\Day 2.csproj.CoreCompileInputs.cache
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\obj\Debug\net7.0\Day 2.dll
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\obj\Debug\net7.0\refint\Day 2.dll
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\obj\Debug\net7.0\Day 2.pdb
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\obj\Debug\net7.0\Day 2.genruntimeconfig.cache
+\\SYNOLOGY-NAS\Jan\Code\AOC\2023\Day 2\obj\Debug\net7.0\ref\Day 2.dll
