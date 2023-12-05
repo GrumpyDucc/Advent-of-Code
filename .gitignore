@@ -14,4 +14,8 @@
 # Task and Testdata Files
 task*
 test*
+<<<<<<< HEAD
 *Justus*
+=======
+*justus*
+>>>>>>> af49d040cdf7f43f45e1495156977f6e771b32d4
