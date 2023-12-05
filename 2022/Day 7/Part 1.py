@@ -1,12 +1,13 @@
 operations = open("2022\\Day 7\\data.txt", "r").read().split("\n")
 
-path = ""
+path = "/"
 
 for operation in operations:
-    if str(operation).startswith("$ cd "):
-        path = path + "/" + str(operation).split(" ")[2]
-    if str(operation).startswith("$ cd .."):
-        index = str(path).rindex("/")
-        path = path[:index]
-
-print(path)
+    if operation.startswith("$ cd"):
+        task = operation.split(" ")[2]
+        if task == "..":
+            index = path.rfind("/")
+            path = path[:index-1]
+        else:
+            path = f"{path}/{task}"
+                
