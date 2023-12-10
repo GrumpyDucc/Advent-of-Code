@@ -1,4 +1,4 @@
-input = open("2023/Day 5/inputtest.txt", "r").read().split(':')
+input = open("2023/Day 5/input.txt", "r").read().split(':')
 endValue = 0
 
 seeds = input[1].split('\n')[0].split(' ')[1:]
@@ -31,10 +31,10 @@ def getDestinationValues(startValues):
             line = line.split(' ')
             sourceRangeStart = int(line[1])
             rangeLength = int(line[2])
-            sourceRange = range(sourceRangeStart-1, sourceRangeStart + rangeLength-1)
+            sourceRange = range(sourceRangeStart, sourceRangeStart + rangeLength)
             if int(value) in sourceRange:
-                index = sourceRange.index(int(value))-1
-                if index > 0:
+                index = sourceRange.index(int(value))
+                if index >= 0:
                     destination = int(line[0])+index
                     destinationValues.append(destination)
                     break
@@ -42,7 +42,10 @@ def getDestinationValues(startValues):
         if notInRange == len(list):
             destinationValues.append(int(value))
     listCounter += 1
-    return getDestinationValues(destinationValues)
+    if listCounter < len(categories): return getDestinationValues(destinationValues)
+    else: 
+        destinationValues.sort()
+        return destinationValues[0]
 
 location = getDestinationValues(seeds)
 print(location)
