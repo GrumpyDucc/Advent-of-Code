@@ -13,18 +13,28 @@ def getDistance(firstLocation, secondLocation):
     for i in range(len(millionRows)):
         if x1 > millionRows[i]: 
             x1 += EXPANTION
+<<<<<<< HEAD
             y1 += 1
         if x2 > millionRows[i]: 
             x2 += EXPANTION
             y2 += 1
+=======
+        if x2 > millionRows[i]: 
+            x2 += EXPANTION
+>>>>>>> 6ac53eb016720e66ef4b12f30b657605cd2ddd44
 
     for i in range(len(millionColumns)):
         if y1 > millionColumns[i]: 
             y1 += EXPANTION
+<<<<<<< HEAD
             x1 += 1
         if y2 > millionColumns[i]: 
             y2 += EXPANTION
             x2 += 1
+=======
+        if y2 > millionColumns[i]: 
+            y2 += EXPANTION
+>>>>>>> 6ac53eb016720e66ef4b12f30b657605cd2ddd44
 
     if x1 < x2:
         deltaX = x2 - x1
