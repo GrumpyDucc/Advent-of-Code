@@ -1,36 +1,38 @@
-datasheet = open("2023/Day 11/inputtest.txt", "r").read().split('\n')
+datasheet = open("2023/Day 11/input.txt", "r").read().split('\n')
 endValue = 0
 
 def getDistance(firstLocation, secondLocation): 
-    x1 = firstLocation[0]
-    y1 = firstLocation[1]-1
+    x1 = firstLocation[1]
+    y1 = firstLocation[0]
     
-    x2 = secondLocation[0]
-    y2 = secondLocation[1]-1
+    x2 = secondLocation[1]
+    y2 = secondLocation[0]
 
-    EXPANTION = 10
-
-    for i in range(len(millionRows)):
-        if x1 > millionRows[i]: 
-            x1 += EXPANTION
-        if x2 > millionRows[i]: 
-            x2 += EXPANTION
-
-    for i in range(len(millionColumns)):
-        if y1 > millionColumns[i]: 
-            y1 += EXPANTION
-        if y2 > millionColumns[i]: 
-            y2 += EXPANTION
+    EXPANTION = 1000000 - 1
 
     if x1 < x2:
-        deltaX = x2 - x1
+        smallX = x1
+        bigX = x2
     else:
-        deltaX = x1 - x2
+        smallX = x2
+        bigX = x1
+    deltaX = bigX - smallX
+
+    for ex in millionColumns:
+        if ex in range(smallX, bigX):
+            deltaX += EXPANTION
     
     if y1 < y2:
-        deltaY = y2 - y1
+        smallY = y1
+        bigY = y2
     else:
-        deltaY = y1 - y2
+        smallY = y2
+        bigY = y1
+    deltaY = bigY - smallY
+
+    for ex in millionRows:
+        if ex in range(smallY, bigY):
+            deltaY += EXPANTION
 
     return deltaX + deltaY
 
@@ -38,7 +40,6 @@ millionColumns = []
 partiallyRealDatasheet = []
 for index, column in enumerate(zip(*datasheet)):
     if column.count('#') == 0:
-        partiallyRealDatasheet.append(column)
         millionColumns.append(index)
     partiallyRealDatasheet.append(column)
 
@@ -48,7 +49,6 @@ millionRows = []
 realDatasheet = []
 for index, row in enumerate(partiallyRealDatasheet):
     if row.count('#') == 0:
-        realDatasheet.append(row)
         millionRows.append(index)
     realDatasheet.append(row)
 

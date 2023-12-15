@@ -23,13 +23,13 @@ while i < lastNum:
     i += 1
 
 for lists in horizontalCrateList:
-        d = 0
-        while d != 1:
-            try:
-                lists.remove("")
-                d = 0
-            except:
-                d = 1
+    d = 0
+    while d != 1:
+        try:
+            lists.remove("")
+            d = 0
+        except:
+            d = 1
 
 def move(amount, src, dst):
     items = horizontalCrateList[src][-amount:]
