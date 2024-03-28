@@ -2,20 +2,20 @@ from os import makedirs, rename, listdir, path
 from requests import get
 from bs4 import BeautifulSoup
 
-def makePart2(year, title):
-    if not path.exists(f"{year}/{title}/part2.py") and open(f"{year}/{title}/part1.txt", "r").read() != "":
-        open(f"{year}/{title}/part2.py", "w").write(f'input = open("{year}/{title}/input.txt", "r").read().split("\\n")\nendValue = 0')
+def makePy(year, title, part):
+    if not path.exists(f"{year}/{title}/part{part}.py"):
+        open(f"{year}/{title}/part{part}.py", "w").write(f'input = open("{year}/{title}/input.txt", "r").read().split("\\n")\nendValue = 0')
 
 def getPage(year, day, sessionCookie):
     url = f"https://adventofcode.com/{year}/day/{day}"
     headers = {"Cookie": f"session={sessionCookie}"}
     return get(url, headers=headers)
 
-def updateDay(year, day):
+def addPartTwo(year, day):
     part = getPartAndTitle(year, day, sessionCookie, 2)
     title = listdir(f"{year}")[int(day) - 1]
-    open(f"{year}/{title}/part1.txt", "w").write(str(part))
-    makePart2(year, title)
+    open(f"{year}/{title}/part2.txt", "w").write(str(part))
+    makePy(year, title, 2)
 
 def createDirectories(year, day, title):
     if path.exists(f"{year}/Day {day}"):
@@ -38,7 +38,7 @@ def makeDay(year, day, sessionCookie):
 
     createDirectories(year, day, title)
     open(f"{year}/{title}/part1.txt", "w").write(str(part))
-    makePart2(year, title)
+    makePy(year, title, 1)
     open(f"{year}/{title}/input.txt", "w").write(str(input))
 
 def getPartAndTitle(year, day, sessionCookie, part):
@@ -65,8 +65,8 @@ if input("Do you want to create all days? [y/n]: ").lower() == "y":
             makeDay(year, day, sessionCookie)
             print(f"Year {year} day {day} done.")
 else:
-    try: 
+    try:
         while True:
             yearAndDay = input("Make Part 2 of: [2023 1]: ").split()
-            updateDay(yearAndDay[0], yearAndDay[1])
+            addPartTwo(yearAndDay[0], yearAndDay[1])
     except KeyboardInterrupt: print("\nKeyboardInterrupt")
