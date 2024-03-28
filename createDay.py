@@ -30,7 +30,8 @@ def getInput(year, day, sessionCookie):
 def makeDay(year, day, sessionCookie):
     partAndTitle = getPartAndTitle(year, day, sessionCookie, 1)
     title = partAndTitle[1].replace('--- ', '').replace(' ---', '').replace(':', ' -') if partAndTitle else None
-    title = ''.join(c for c in title if c.isalnum() or c.isspace() or c in ['-', '_'])
+    if title is not None:
+        title = ''.join(c for c in title if c.isalnum() or c.isspace() or c in ['-', '_'])
     part = partAndTitle[0].replace(partAndTitle[1], '') if partAndTitle else None
     input = getInput(year, day, sessionCookie)
 
@@ -51,10 +52,10 @@ def getPartAndTitle(year, day, sessionCookie, part):
         case 1: 
             element = soup.select_one('body > main > article:nth-child(1)')
             title = soup.select_one('body > main > article > h2')
-            return element.text, title.text
+            if element and title: return element.text, title.text
         case 2: 
             element =  soup.select_one('body > main > article:nth-child(3)')
-            return element.text
+            if element: return element.text
 
 sessionCookie = input("Enter your session cookie: ")
 
