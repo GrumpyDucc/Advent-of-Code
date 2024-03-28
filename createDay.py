@@ -47,7 +47,6 @@ def getPartAndTitle(year, day, sessionCookie, part):
     """
     page = getPage(year, day, sessionCookie)
     soup = BeautifulSoup(page.text, 'html.parser')
-
     match(part):
         case 1: 
             element = soup.select_one('body > main > article:nth-child(1)')
@@ -60,8 +59,8 @@ def getPartAndTitle(year, day, sessionCookie, part):
 sessionCookie = input("Enter your session cookie: ")
 
 if input("Do you want to create all days? [y/n]: ").lower() == "y":
-    for year in range(int(input("Start year: ")), 2023 + 1):
-        for day in range(int(input("Start day: ")), 24 + 1):
+    for year in range(2015, 2023 + 1):
+        for day in range(1, 24 + 1):
             makeDay(year, day, sessionCookie)
             print(f"Year {year} day {day} done.")
 else:

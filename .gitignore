@@ -12,8 +12,4 @@
 *.vsix
 
 # Task and Testdata Files
-task*
-test*
-*Justus*
-*input*
-*.pdf
+*.txt
