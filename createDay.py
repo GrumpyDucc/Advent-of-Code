@@ -1,4 +1,4 @@
-from os import makedirs, rename, path
+from os import makedirs, rename, listdir, path
 from requests import get
 from bs4 import BeautifulSoup
 
@@ -11,8 +11,9 @@ def getPage(year, day, sessionCookie):
     headers = {"Cookie": f"session={sessionCookie}"}
     return get(url, headers=headers)
 
-def updateDay(year, day, title):
+def updateDay(year, day):
     part = getPartAndTitle(year, day, sessionCookie, 2)
+    title = listdir(f"{year}")[int(day) - 1]
     open(f"{year}/{title}/part1.txt", "w").write(str(part))
     makePart2(year, title)
 
@@ -44,7 +45,6 @@ def getPartAndTitle(year, day, sessionCookie, part):
     """
     Returns the part1 and title of the day or part2.
     """
-
     page = getPage(year, day, sessionCookie)
     soup = BeautifulSoup(page.text, 'html.parser')
 
@@ -59,13 +59,14 @@ def getPartAndTitle(year, day, sessionCookie, part):
 
 sessionCookie = input("Enter your session cookie: ")
 
-for year in range(2015, 2023 + 1):
-    for day in range(1, 24 + 1):
-        makeDay(year, day, sessionCookie)
-        print(f"Year {year} day {day} done.")
-
-try: 
-    while True:
-        yearAndDay = input("Give me part 2 of: [2023 1]: ").split()
-        updateDay(yearAndDay[0], yearAndDay[1], sessionCookie)
-except KeyboardInterrupt: print("\nKeyboardInterrupt")
+if input("Do you want to create all days? [y/n]: ").lower() == "y":
+    for year in range(int(input("Start year: ")), 2023 + 1):
+        for day in range(int(input("Start day: ")), 24 + 1):
+            makeDay(year, day, sessionCookie)
+            print(f"Year {year} day {day} done.")
+else:
+    try: 
+        while True:
+            yearAndDay = input("Make Part 2 of: [2023 1]: ").split()
+            updateDay(yearAndDay[0], yearAndDay[1])
+    except KeyboardInterrupt: print("\nKeyboardInterrupt")
