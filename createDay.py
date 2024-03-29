@@ -3,9 +3,14 @@ from requests import get
 from bs4 import BeautifulSoup
 
 def makePy(year, title, part):
-    if not path.exists(f"{year}/{title}/part{part}.py"):
-        open(f"{year}/{title}/part{part}.py", "w").write(f'input = open("{year}/{title}/input.txt", "r").read().split("\\n")\nendValue = 0')
-
+    match(part):
+        case 1:
+            if not path.exists(f"{year}/{title}/part{part}.py"):
+                open(f"{year}/{title}/part{part}.py", "w").write(f'input = open("{year}/{title}/input.txt", "r").read().split("\\n")\nendValue = 0')
+        case 2:
+            if not path.exists(f"{year}/{title}/part{part}.py") and path.getsize(f"{year}/{title}/part{part}.py") == 0:
+                open(f"{year}/{title}/part{part}.py", "w").write(open(f"{year}/{title}/part1.py", "r").read())
+    
 def getPage(year, day, sessionCookie):
     url = f"https://adventofcode.com/{year}/day/{day}"
     headers = {"Cookie": f"session={sessionCookie}"}
@@ -13,8 +18,10 @@ def getPage(year, day, sessionCookie):
 
 def addPartTwo(year, day):
     part = getPartAndTitle(year, day, sessionCookie, 2)
-    title = listdir(f"{year}")[int(day) - 1]
+    #title = listdir(year)[int(day) - 1]
+    title = listdir(year)
     open(f"{year}/{title}/part2.txt", "w").write(str(part))
+    print(title)
     makePy(year, title, 2)
 
 def createDirectories(year, day, title):
@@ -53,7 +60,7 @@ def getPartAndTitle(year, day, sessionCookie, part):
             title = soup.select_one('body > main > article > h2')
             if element and title: return element.text, title.text
         case 2: 
-            element =  soup.select_one('body > main > article:nth-child(3)')
+            element =  soup.select_one('body > main > article:nth-child(4)')
             if element: return element.text
 
 sessionCookie = input("Enter your session cookie: ")

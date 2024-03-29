@@ -11,5 +11,5 @@
 # Built Visual Studio Code Extensions
 *.vsix
 
-# Task and Testdata Files
+# all data files
 *.txt
