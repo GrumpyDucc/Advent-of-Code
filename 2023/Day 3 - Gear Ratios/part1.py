@@ -1,63 +1,46 @@
-engSche = open("2023/Day 3/inputEdit.txt", "r").read().split("\n")
-
+input = open("2023/Day 3 - Gear Ratios/input.txt", "r").read().split("\n")
 endValue = 0
-line = index = 1
-number = ""
 
-def touch(line, index, lenOfNum):
-    # check touch above
-    for num in range(lenOfNum):
-        if engSche[line-1][index + num] != '.':
-            return True
+# OUTCOME test2input = 4694
+
+def checkSurroundings(r, c):
+    if       r - 1 > 0:
+        if   c - 1 >= 0 and                 input[r-1][c-1] in symbols: return True # top left
+        elif                                input[r-1][c] in symbols: return True   # top
+        elif c + 1 < len(input[0]) and      input[r-1][c+1] in symbols: return True # top right
     
-    # check touch below
-    for num in range(lenOfNum):
-        if engSche[line+1][index + num] != '.':
-            return True
+    if       c - 1 >= 0 and                 input[r][c-1] in symbols: return True   # left
+    elif     c + 1 < len(input[0]) and      input[r][c+1] in symbols: return True   # right
     
-    # check touch left
-    if engSche[line][index - 1] != '.':
-        return True
+    if       r + 1 < len(input) - 1:
+        if   c - 1 >= 0 and                 input[r+1][c-1] in symbols: return True # bel left
+        elif                                input[r+1][c] in symbols: return True   # bel
+        elif c + 1 < len(input[0]) and      input[r+1][c+1] in symbols: return True #bel right
     
-    # check touch right
-    if engSche[line][index + lenOfNum] != '.':
-        return True
+    else: return False
 
-    # check touch top left
-    if engSche[line-1][index - 1] != '.':
-        return True
-    
-    #check touch top right
-    if engSche[line-1][index + lenOfNum] != '.':
-        return True
-    
-    #check touch bottom left
-    if engSche[line+1][index - 1] != '.':
-        return True
-    
-    #check touch bottom right
-    if engSche[line+1][index + lenOfNum] != '.':
-        return True
+symbols = ['*', '#', '+', '$', '-', '=', '@', '/', '&', '%']
+currentNum = ''
+found = False
+foundNums = []
 
-    return False
-
-
-#engSche[i][j-1] != '.' and engSche[i][j+len(number)] != '.' and engSche[i+1][j] != '.' and engSche[i-1][j] != '.' and engSche[i+1][j-1] != '.' and engSche[i+1][j+1] != '.' and engSche[i-1][j-1] != '.' and engSche[i-1][j+1] != '.'
-
-while line < len(engSche):
-    index = 0
-    while index < len(engSche[line]):
-        if engSche[line][index].isdigit():
-            number = engSche[line][index]
-            while engSche[line][index+1].isdigit():
-                number += engSche[line][index+1]
-                index += 1
-            if touch(line, index-len(number)+1, len(number)):
-                endValue += int(number)
-                index += 1
-            else:
-                index += 1
-        else: index += 1
-    else: line += 1
-
+for r in range(len(input)):
+    for c in range(len(input[r])):
+        char = input[r][c]
+        if char.isdigit():
+            currentNum += char
+            if not found and checkSurroundings(r, c):
+                found = True
+        elif found:
+            foundNums.append(int(currentNum))
+            endValue += int(currentNum)
+            found = False
+            currentNum = ''
+        elif char == '.':                               # !!! 
+            currentNum = ''
+    if char.isdigit() and found and currentNum:         # !!! auch wenn zahl am rand ist mitzählen
+        foundNums.append(int(currentNum))
+        endValue += int(currentNum)
+    currentNum = ''
+    found = False
 print(endValue)

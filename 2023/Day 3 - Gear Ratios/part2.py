@@ -1,73 +1,58 @@
-engSche = open("2023/Day 3/inputtest.txt", "r").read().split("\n")
-
+input = open("2023/Day 3 - Gear Ratios/input.txt", "r").read().split("\n")
 endValue = 0
-line = index = 1
 
-def checkList(lst):
- 
-    ele = lst[0]
-    chk = True
- 
-    # Comparing each element with first item
-    for item in lst:
-        if ele != item:
-            chk = False
-            break
-    return chk
+# OUTCOME test2input = 4694
 
-def getNum(line, index):
-    num = ""
-    cnt = 0
-    while engSche[line][index-cnt].isdigit():
-        cnt += 1
-    else:
-        index -= cnt - 1
-        cnt = 0
-        while engSche[line][index+cnt].isdigit():
-            num += engSche[line][index+cnt]
-            cnt += 1
-    return int(num)
+def checkSurroundings(r, c):
+    if       r - 1 > 0:
+        if   c - 1 >= 0 and                 input[r-1][c-1] in symbols: return True, (r-1,c-1) # top left
+        elif                                input[r-1][c] in symbols: return True, (r-1,c)    # top
+        elif c + 1 < len(input[0]) and      input[r-1][c+1] in symbols: return True, (r-1,c+1) # top right
+    
+    if       c - 1 >= 0 and                 input[r][c-1] in symbols: return True, (r,c-1)    # left
+    elif     c + 1 < len(input[0]) and      input[r][c+1] in symbols: return True, (r,c+1)    # right
+    
+    if       r + 1 < len(input) - 1:
+        if   c - 1 >= 0 and                 input[r+1][c-1] in symbols: return True, (r+1,c-1) # bel left
+        elif                                input[r+1][c] in symbols: return True, (r+1,c)    # bel
+        elif c + 1 < len(input[0]) and      input[r+1][c+1] in symbols: return True, (r+1,c+1) #bel right
+    
+    else: return False, (0, 0)
+    return False, (0, 0)
 
-def getNumbers(line, index):
-    values = []
-    above = below = topLeft = topRight = bottomLeft = bottomRight = 0
-    # Bottom, Above, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight
-    # check below
-    if engSche[line+1][index].isdigit():
-        below = getNum(line+1, index)
-    # check above
-    if engSche[line-1][index].isdigit():
-       above = getNum(line-1, index)
-    # check left
-    if engSche[line][index-1].isdigit():
-        values.append(getNum(line, index-1))
-    # check right
-    if engSche[line][index+1].isdigit():
-        values.append(getNum(line, index+1))
-    # check top left
-    if engSche[line-1][index-1].isdigit():
-        topLeft = getNum(line-1, index-1)
-    # check top right
-    if engSche[line-1][index+1].isdigit():
-        topRight = getNum(line-1, index+1)
-    # check bottom left
-    if engSche[line+1][index-1].isdigit():
-        bottomLeft = getNum(line+1, index-1)
-    # check bottom right
-    if engSche[line+1][index+1].isdigit():
-        bottomRight = getNum(line+1, index+1)
+def findPair(cogPos, currentNum):
+    for f in range(len(foundNums)):
+        if foundNums[f][0] == cogPos:
+            foundNums[f][1].append(int(currentNum))
+            return
+    foundNums.append([cogPos, [int(currentNum)]])
 
-    if len(values) < 2: values.append(0)
+symbols = ['*']
+currentNum = ''
+found = False
+foundNums = []
 
-    return values[0], values[1]
+for r in range(len(input)):
+    for c in range(len(input[r])):
+        char = input[r][c]
+        if char.isdigit():
+            currentNum += char
+            out = checkSurroundings(r, c)
+            if not found and out[0]:
+                found = True
+                cogPos = out[1]
+        elif found:
+            findPair(cogPos, currentNum)
+            found = False
+            currentNum = ''
+        elif char == '.':                               # !!! trennung nach ungewerteter zahl
+            currentNum = ''
+    if char.isdigit() and found and currentNum:         # !!! auch wenn zahl am rand ist mitzählen
+        findPair(cogPos, currentNum)
+    currentNum = ''
+    found = False
 
-while line < len(engSche):
-    if engSche[line].count('*') != 0:
-        indexes = [i for i, e in enumerate(engSche[line]) if e == '*']
-        for index in indexes:
-            num1, num2 = getNumbers(line, index)
-            print(f"line: {line+1} index: {index} {num1}*{num2}={int(num1)*int(num2)}")
-            endValue += int(num1) * int(num2)
-    line += 1
-
+for foundNum in foundNums:
+    if len(foundNum[1]) == 2:
+        endValue += foundNum[1][0] * foundNum[1][1]
 print(endValue)
