@@ -1,4 +1,4 @@
-input = open("2023/Day 16 - The Floor Will Be Lava/test2input.txt", "r").read().split("\n")
+input = open("2023/Day 16 - The Floor Will Be Lava/input.txt", "r").read().split("\n")
 endValue = 0
 
 p = []
@@ -78,7 +78,7 @@ def energize(beam:Beam):
         roundsWithoutChange.append(r)
         pass
 
-while beams and len(roundsWithoutChange) < 25:
+while beams and len(roundsWithoutChange) < 10000:
     for beam in beams:
         energize(beam)
         checkBeam(beam)
