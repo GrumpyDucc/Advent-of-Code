@@ -2,7 +2,21 @@ input = open("2023/Day 7 - Camel Cards/input.txt", "r").read().split('\n')
 if input[-1] == '': input = input[:-1]
 endValue = 0
 
-possibleCards = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
+possibleCards = ['J', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'Q', 'K', 'A']
+
+def getMaxValue(hand):
+    if hand.count('J') > 0:
+        maxValue = 0
+        indicesOfJ = [i for i, c in enumerate(hand) if c == 'J']
+        for index in indicesOfJ:
+            for c in possibleCards[1:]:
+                newHand = hand[:index] + c + hand[index+1:]
+                value = getMaxValue(newHand)
+                if value > maxValue:
+                    maxValue = value
+        return maxValue
+    else:
+        return getValue(hand)
 
 def getValue(hand):
     values = []
@@ -38,7 +52,7 @@ ranking = [[],[],[],[],[],[],[]]
 
 for handBidString in input:
     hand, bid = handBidString.split(' ')
-    handValue = getValue(hand)
+    handValue = getMaxValue(hand)
     if ranking[handValue] == []:
         ranking[handValue].append((hand, bid))
     else:
