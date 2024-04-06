@@ -1,4 +1,4 @@
-input = open("2023/Day 5/input.txt", "r").read().split(':')
+input = open("2023/Day 5 - If You Give A Seed A Fertilizer/input.txt", "r").read().split(':')
 endValue = 0
 
 seeds = input[1].split('\n')[0].split(' ')[1:]

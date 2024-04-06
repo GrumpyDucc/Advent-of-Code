@@ -1,17 +1,11 @@
-input = open("2023/Day 5/input.txt", "r").read().split(':')
+input = open("2023/Day 5 - If You Give A Seed A Fertilizer/input.txt", "r").read().split(':')
 endValue = 0
 
 seeds = input[1].split('\n')[0].split(' ')[1:]
 
-new_array = []
+seedRanges = []
 for i in range(0, len(seeds), 2):
-    r = range(int(seeds[i]),int(seeds[i])+int(seeds[i + 1]))
-    new_array.append(r)
-
-seeds.clear()
-for r in new_array:
-    for value in r:
-        seeds.append(value)
+    seedRanges.append(range(int(seeds[i]),int(seeds[i])+int(seeds[i + 1])))
 
 categories = [
     #seedToSoil
@@ -52,11 +46,13 @@ def getDestinationValues(startValues):
             else: notInRange += 1
         if notInRange == len(list):
             destinationValues.append(int(value))
-    listCounter += 1
-    if listCounter < len(categories): return getDestinationValues(destinationValues)
-    else: 
-        destinationValues.sort()
-        return destinationValues[0]
+    if listCounter < len(categories) - 1:
+        listCounter += 1
+        return getDestinationValues(destinationValues)
+    else:
+        return sorted(destinationValues)[0]
 
-location = getDestinationValues(seeds)
-print(location)
+locations = []
+for seedRange in seedRanges:
+    locations.append(getDestinationValues([*seedRange]))
+print(sorted(locations)[0])
