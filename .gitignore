@@ -12,5 +12,5 @@
 *.vsix
 
 # all data files
-*.txt
+input.txt
 *.mhtml
