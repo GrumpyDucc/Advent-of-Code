@@ -6,7 +6,8 @@ def makePy(year, title, part):
     match(part):
         case 1:
             if not path.exists(f"{year}/{title}/part{part}.py"):
-                open(f"{year}/{title}/part{part}.py", "w").write(f'input = open("{year}/{title}/input.txt", "r").read().split("\\n")\nendValue = 0')
+                open("template.py", "r").read()
+                open(f"{year}/{title}/part{part}.py", "w").write(f'')
         case 2:
             if not path.exists(f"{year}/{title}/part{part}.py") and path.getsize(f"{year}/{title}/part{part}.py") == 0:
                 open(f"{year}/{title}/part{part}.py", "w").write(open(f"{year}/{title}/part1.py", "r").read())
