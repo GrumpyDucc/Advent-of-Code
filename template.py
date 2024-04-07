@@ -1,6 +1,5 @@
 from os import getcwd
-data = open(f"{getcwd()}/input.txt", "r").read().split("\n")
-if data[-1] == '': data = data[:-1]
+data = open(f"{getcwd()}/input.txt", "r").read().strip().splitlines()
 endValue = 0
 
 
