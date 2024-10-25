@@ -3,6 +3,8 @@ endValue = 0
 
 for line in input:
     l, w, h = map(int, line.split("x"))
-    endValue += 2*l*w + 2*w*h + 2*h*l + min(l*w, w*h, h*l)
+    wrap = 2*l + 2*w + 2*h - 2*max(l, w, h)
+    bow = l*w*h
+    endValue += wrap + bow
     
 print(endValue)

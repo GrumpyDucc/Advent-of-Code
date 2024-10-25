@@ -1,8 +1,18 @@
-datasheet = open("2023/Day 12/inputtest.txt", "r").read().split('\n')
+data = open("2023/Day 12 - Hot Springs/testinput.txt", "r").read().strip().splitlines()
 endValue = 0
 
-for line in datasheet:
-    line = line.split(' ')
-    springs = list(line[0])
-    conditionRecord = line[1].split(',')
-    pass
+"""
+???.### 1,1,3
+.??..??...?##. 1,1,3
+?#?#?#?#?#?#?#? 1,3,1,6
+????.#...#... 4,1,1
+????.######..#####. 1,6,5
+?###???????? 3,2,1
+"""
+
+for row in data:
+    record, notes = row.split()
+    notes = tuple(notes.split(","))
+
+    for note in notes:
+        
