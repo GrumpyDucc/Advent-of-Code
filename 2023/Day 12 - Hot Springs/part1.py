@@ -12,7 +12,27 @@ endValue = 0
 
 for row in data:
     record, notes = row.split()
+    record = tuple(record)
     notes = tuple(notes.split(","))
 
-    for note in notes:
+    """
+    splitRecord = []
+    save = ''
+    for char in record:
+        save += char
+        if len(save) != 1 and char != save[-2]:
+            splitRecord.append(save[:-1])
+            save = save[-1]
+    splitRecord.append(save)
+    record = splitRecord
+    """
+    
+    currentRecordIndex = 0
+    currentNoteIndex = 0
+    while currentRecordIndex < len(record):
+        currentChar = record[currentRecordIndex]
+        if currentChar == '?':
+            print(record[currentRecordIndex:int(notes[currentNoteIndex])])
         
+        currentRecordIndex += 1
+    break

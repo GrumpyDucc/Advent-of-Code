@@ -11,7 +11,7 @@ def makePy(year, title, part):
         case 2:
             if not path.exists(f"{year}/{title}/part{part}.py") and path.getsize(f"{year}/{title}/part{part}.py") == 0:
                 open(f"{year}/{title}/part{part}.py", "w").write(open(f"{year}/{title}/part1.py", "r").read())
-    
+
 def getPage(year, day, sessionCookie):
     url = f"https://adventofcode.com/{year}/day/{day}"
     headers = {"Cookie": f"session={sessionCookie}"}
@@ -56,11 +56,11 @@ def getPartAndTitle(year, day, sessionCookie, part):
     page = getPage(year, day, sessionCookie)
     soup = BeautifulSoup(page.text, 'html.parser')
     match(part):
-        case 1: 
+        case 1:
             element = soup.select_one('body > main > article:nth-child(1)')
             title = soup.select_one('body > main > article > h2')
             if element and title: return element.text, title.text
-        case 2: 
+        case 2:
             element =  soup.select_one('body > main > article:nth-child(4)')
             if element: return element.text
 
