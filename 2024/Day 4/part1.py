@@ -17,44 +17,19 @@ def checkForXMAS(gridToCheck):
                 # print(selection, line, char)
     return count
 
-endValue = checkForXMAS(grid) + checkForXMAS(rotatedGrid)
+def makeDiagonal(type: bool):
+    n = len(grid)
+    diagonalGrid = []
+    for d in range(2 * n - 1):
+        diagonal = []
+        for i in range(n):
+            if type: j = d - i
+            else: j = i - (d - (n - 1))
+            if 0 <= j < n:
+                diagonal.append(grid[i][j])
+        diagonalGrid.append(diagonal)
+    return diagonalGrid
 
-n = len(grid)
-diagonalGrid = []
-for d in range(2 * n - 1):
-    diagonal = []
-    for i in range(n):
-        j = d - i
-        if 0 <= j < n:
-            diagonal.append(grid[i][j])
-    diagonalGrid.append(diagonal)
-
-for diagonal in diagonalGrid:
-    if len(diagonal) < 4: continue
-    if diagonal in XMAS: continue
-    for char in range(len(diagonal)-3):
-        selection = diagonal[char:char+4]
-        if selection in XMAS:
-            endValue += 1
-
-n = len(grid)
-diagonalGrid = []
-for d in range(2 * n - 1):
-    diagonal = []
-    for i in range(n):
-        j = i - (d - (n - 1))
-        if 0 <= j < n:
-            diagonal.append(grid[i][j])
-    diagonalGrid.append(diagonal)
-
-for diagonal in diagonalGrid:
-    if len(diagonal) < 4: continue
-    if diagonal in XMAS: 
-        endValue += 1
-        continue
-    for char in range(len(diagonal)-3):
-        selection = diagonal[char:char+4]
-        if selection in XMAS:
-            endValue += 1
+endValue = checkForXMAS(grid) + checkForXMAS(rotatedGrid) + checkForXMAS(makeDiagonal(True)) + checkForXMAS(makeDiagonal(False))
 
 print(endValue)
