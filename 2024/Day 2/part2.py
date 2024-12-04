@@ -1,4 +1,5 @@
-input = open("2024/Day 2/tinput.txt", "r").readlines()
+from aocd import get_data
+input = get_data(day=2, year=2024).split('\n')
 
 reports = [list(map(int, x.split())) for x in input]
 answer = 0

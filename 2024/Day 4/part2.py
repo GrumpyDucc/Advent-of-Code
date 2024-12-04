@@ -1,7 +1,8 @@
-data = open("2024/Day 4/input.txt", "r").readlines()
+from aocd import get_data
+input = get_data(day=4, year=2024).split('\n')
 endValue = 0
 
-grid = [list(x.removesuffix("\n")) for x in data]
+grid = [list(x.removesuffix("\n")) for x in input]
 
 for row in range(1, len(grid)-1):
     for column in range(1, len(grid[row])-1):

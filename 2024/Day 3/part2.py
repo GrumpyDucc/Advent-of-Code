@@ -1,9 +1,10 @@
-data = open("2024/Day 3/tinput.txt", "r").read().strip()
+from aocd import get_data
+input = get_data(day=3, year=2024)
 endValue = 0
 
 import re
-multiplications = re.finditer("mul\\(\\d{0,3},\\d{0,3}\\)",data)
-switches = [x.span() for x in re.finditer("do\\(\\)|don't\\(\\)", data)]
+multiplications = re.finditer("mul\\(\\d{0,3},\\d{0,3}\\)", input)
+switches = [x.span() for x in re.finditer("do\\(\\)|don't\\(\\)", input)]
 
 currentSwitch = 0
 do = True

@@ -1,7 +1,8 @@
-data = open("2024/Day 4/input.txt", "r").readlines()
+from aocd import get_data
+input = get_data(day=4, year=2024).split('\n')
 endValue = 0
 
-grid = [list(x.removesuffix("\n")) for x in data] # [line][char in line]
+grid = [list(x.removesuffix("\n")) for x in input] # [line][char in line]
 rotatedGrid = [list(x) for x in zip(*grid)]
 
 XMAS = [['X','M','A','S'], ['S','A','M','X']]
