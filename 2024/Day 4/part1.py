@@ -17,7 +17,6 @@ def checkForXMAS(gridToCheck):
     return count
 
 endValue = checkForXMAS(grid) + checkForXMAS(rotatedGrid)
-print(endValue)
 
 n = len(grid)
 diagonalGrid = []
@@ -36,7 +35,7 @@ for diagonal in diagonalGrid:
         selection = diagonal[char:char+4]
         if selection in XMAS:
             endValue += 1
-     
+
 n = len(grid)
 diagonalGrid = []
 for d in range(2 * n - 1):

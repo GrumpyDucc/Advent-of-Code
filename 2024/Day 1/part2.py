@@ -1,4 +1,4 @@
-input = open("Day 1/input.txt", "r").readlines()
+input = open("2024/Day 1/input.txt", "r").readlines()
 answer = 0
 
 leftList = []
