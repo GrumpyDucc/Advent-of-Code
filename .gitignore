@@ -13,7 +13,5 @@
 *.vsix
 
 # all data files
-task.txt
-input.txt
-tinput.txt
+*.txt
 *.mhtml
