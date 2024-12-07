@@ -13,46 +13,41 @@ def findGuard() -> list[int]:
     return []
 
 def isBlocked(coords: list[int]):
-    if coords[0] not in range(len(input)) or coords[1] not in range(len(input)): return None
+    if coords[0] not in range(len(map)) or coords[1] not in range(len(map)): return False
     if map[coords[0]][coords[1]] == "#": return True
     return False
 
 guardCoords = findGuard()
 guardLeft = False
-
-# Up = 0
-# Right = 1
-# Down = 2
-# Left = 3
 guardDirection = 0
-visitedCoords = []
+visitedCoords = [guardCoords]
 
 while not guardLeft:
     match guardDirection:
-        case 0:
-            newCoords = [guardCoords[0]+1, guardCoords[1]]
-            if not isBlocked(newCoords) == int:
-                guardDirection = 1
-            else: guardLeft = True
-        case 1:
-            newCoords = [guardCoords[0], guardCoords[1]+1]
-            if not isBlocked(newCoords) == int:
-                guardDirection = 2
-            else: guardLeft = True
-        case 2:
+        case 0: # Up = 0
             newCoords = [guardCoords[0]-1, guardCoords[1]]
-            if not isBlocked(newCoords) == int:
+            if isBlocked(newCoords):
+                guardDirection = 1
+            else: guardCoords = newCoords
+        case 1: # Right = 1
+            newCoords = [guardCoords[0], guardCoords[1]+1]
+            if isBlocked(newCoords):
+                guardDirection = 2
+            else: guardCoords = newCoords
+        case 2: # Down = 2
+            newCoords = [guardCoords[0]+1, guardCoords[1]]
+            if isBlocked(newCoords):
                 guardDirection = 3
-            else: guardLeft = True
-        case 3:
+            else: guardCoords = newCoords
+        case 3: # Left = 3
             newCoords = [guardCoords[0], guardCoords[1]-1]
-            if isBlocked(newCoords): guardDirection = 0
+            if isBlocked(newCoords): 
+                guardDirection = 0
             else: guardCoords = newCoords
     if guardCoords[0] not in range(len(map)-1) or guardCoords[1] not in range(len(map)-1): guardLeft = True
     if visitedCoords.count(guardCoords) < 1: 
         visitedCoords.append(guardCoords)
 
-print(visitedCoords)
 endValue = len(visitedCoords)
 
 print(endValue)
