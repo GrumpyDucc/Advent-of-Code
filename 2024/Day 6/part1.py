@@ -10,6 +10,7 @@ map = [list(x)for x in input.splitlines()]
 def findGuard() -> list[int]:
     for r in range(len(map)):
         if map[r].count('^') > 0: return [r, map[r].index('^')]
+    return []
 
 def isBlocked(coords: list[int]):
     if coords[0] not in range(len(input)) or coords[1] not in range(len(input)): return None
@@ -24,6 +25,7 @@ guardLeft = False
 # Down = 2
 # Left = 3
 guardDirection = 0
+visitedCoords = []
 
 while not guardLeft:
     match guardDirection:
@@ -44,11 +46,13 @@ while not guardLeft:
             else: guardLeft = True
         case 3:
             newCoords = [guardCoords[0], guardCoords[1]-1]
-            if not isBlocked(newCoords) == int:
-                guardDirection = 0
-            else: guardLeft = True
-    map[guardCoords[0]][guardCoords[1]] = 'X'
-    print(map[guardCoords[0]][guardCoords[1]])
-    guardCoords = newCoords
+            if isBlocked(newCoords): guardDirection = 0
+            else: guardCoords = newCoords
+    if guardCoords[0] not in range(len(map)-1) or guardCoords[1] not in range(len(map)-1): guardLeft = True
+    if visitedCoords.count(guardCoords) < 1: 
+        visitedCoords.append(guardCoords)
+
+print(visitedCoords)
+endValue = len(visitedCoords)
 
 print(endValue)
