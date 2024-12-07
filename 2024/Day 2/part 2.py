@@ -1,3 +1,5 @@
+from math import floor
+import time
 from aocd import get_data
 
 USE_TEST_INPUT = False
@@ -7,7 +9,7 @@ endValue = 0
 
 reports = [list(map(int, x.split())) for x in input.split('\n')]
 
-for report in reports:
+def isSafe(report):
     isDecreasing = report[0] - report[1] > 0
     safes = 0
     for i in range(len(report[:-1])):
@@ -15,7 +17,17 @@ for report in reports:
         if (difference > 0) == isDecreasing and abs(difference) in range(1,4): #if safe
             safes += 1
         else: break
-    if safes == len(report)-1:
-        endValue += 1
+    return safes == len(report)-1
+
+for report in reports:
+    if isSafe(report): endValue += 1
+    else:
+        safes = 0
+        for i in range(len(report)):
+            temp = list(report)
+            del temp[i]
+            if isSafe(temp): 
+                endValue += 1
+                break
 
 print(endValue)
