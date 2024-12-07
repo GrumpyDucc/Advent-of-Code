@@ -15,15 +15,23 @@ for eqation in equations:
     result = eqation[0]
     nums = list(map(int, eqation[1]))
     
-    maxOptions = pow(2, len(nums)-1)
-    for i in range(0, maxOptions):
+    maxOptions = pow(3, len(nums)-1)
+    for i in range(maxOptions):
         eqationResult = nums[0]
+        # (i//3**j)%3
         for j in range(len(nums)-1):
-            if i >> j & 1: eqationResult += nums[j+1]
-            else: eqationResult *= nums[j+1]
+            operator = (i//3**j)%3
+            if operator == 0: 
+                eqationResult += nums[j+1]
+            elif operator == 1: 
+                eqationResult *= nums[j+1]
+            else:
+                eqationResult = int(f"{eqationResult}{nums[j+1]}")
+        
         if eqationResult == result:
             endValue += result
             break
+    print(result)
 
 end = time.time()
 print(end - start)

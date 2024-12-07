@@ -1,7 +1,11 @@
 from aocd import get_data
-input = get_data(day=2, year=2024).split('\n')
 
-reports = [list(map(int, x.split())) for x in input]
+USE_TEST_INPUT = True
+if USE_TEST_INPUT: input = open("2024/Day 2/tinput.txt", 'r').read().strip()
+else: input = get_data(day=2, year=2024)
+endValue = 0
+
+reports = [list(map(int, x.split())) for x in input.split('\n')]
 answer = 0
 
 wrongReports = 0
