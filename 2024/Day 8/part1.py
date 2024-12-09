@@ -1,9 +1,11 @@
+import time
 from utils.input_handling import loadDay
 
 USE_TEST_INPUT = False
 input = loadDay(8, 2024, USE_TEST_INPUT)
 endValue = 0
 
+start = time.time()
 map = [list(x) for x in input.splitlines()]
 mapSize = len(map)
 
@@ -27,17 +29,15 @@ def onMap(positionAnidote: tuple[int, int]):
 
 def getAntinotes(positionAntenna1: tuple[int, int], positionAntenna2: tuple[int, int]) -> list[tuple[int, int]|None]:
     antennaOffset = getDistance(positionAntenna1, positionAntenna2)
-        
+    
+    antinodes = []
     antinode1 = (positionAntenna1[0]+antennaOffset[0], positionAntenna1[1]+antennaOffset[1])
     antinode2 = (positionAntenna2[0]-antennaOffset[0], positionAntenna2[1]-antennaOffset[1])
     
-    if not onMap(antinode1): antinode1 = None
-    if not onMap(antinode2): antinode2 = None
+    if onMap(antinode1): antinodes.append(antinode1)
+    if onMap(antinode2): antinodes.append(antinode2)
     
-    print(positionAntenna1, positionAntenna2)
-    print(antinode1, antinode2)
-    print()
-    return [antinode1, antinode2]
+    return antinodes
 
 antinodes = []
 for antennaType in antennas:
@@ -52,8 +52,10 @@ for antennaType in antennas:
         print(i, j)
         currentAntenna = typedAntennas[i]
         nextAntenna = typedAntennas[j]
-        antinodes.extend([antinode for antinode in getAntinotes(currentAntenna, nextAntenna) if antinode is not None])
+        antinodes.extend(getAntinotes(currentAntenna, nextAntenna))
 
 endValue = len(list(dict.fromkeys(antinodes)))
+end = time.time()
+print(end-start)
 
 print(endValue)

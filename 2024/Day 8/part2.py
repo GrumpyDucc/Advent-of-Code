@@ -1,8 +1,11 @@
+import time
 from utils.input_handling import loadDay
 
 USE_TEST_INPUT = False
 input = loadDay(8, 2024, USE_TEST_INPUT)
 endValue = 0
+
+start = time.time()
 
 map = [list(x) for x in input.splitlines()]
 mapSize = len(map)
@@ -58,5 +61,8 @@ for antennaType in antennas:
         antinodes.extend(getAntinotes(currentAntenna, nextAntenna))
 
 endValue = len(list(dict.fromkeys(antinodes)))
+
+end = time.time()
+print(end-start)
 
 print(endValue)
